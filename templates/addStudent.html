@@ -1,0 +1,65 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'dist/css/bootstrap.min.css'%}">
+    <script src="https://kit.fontawesome.com/14bfa6f5f3.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!----------------      NAVBAR         -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Student Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse pl-2" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Home <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'add'%}"><i class="fa-solid fa-plus"></i> Add Student <span
+                            class="sr-only">(current)</span></a>
+                </li>
+
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for student" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="overall">
+        <h4 class="m-3"> <i class="fa-regular fa-pen-to-square"></i> Add Student</h4>
+        <form class="container edit__modal w-50 mt-5" method="post" enctype="multipart/form-data">
+            {% csrf_token%}
+            <style>
+                input {
+                    width: 100%;
+                    padding: 5px;
+                }
+            </style>
+            <div class="form-group ">
+                {{form.as_p}}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+    <script src="{% static 'dist/js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>
