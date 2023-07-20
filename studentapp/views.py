@@ -3,13 +3,15 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Student
 from django.core.paginator import Paginator
 from .forms import addStudent
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 def index(request):
     students = Student.objects.all()
-    
-    return render(request, 'index.html', { 'students': students})
+    paginator = Paginator(students,3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'index.html', { 'students': page_obj})
 
 
 @login_required(login_url="/accounts/login/")
@@ -55,18 +57,6 @@ def details(request, id):
     student = Student.objects.get(pk=id)
     return render(request, 'details.html', {'student' : student})
 
-# def signin(request):
-#     if request.method == "POST":
-#         username = request.get.POST('username')
-#         password = request.get.POST('password')
-        
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('index')
-#             ...
-#         else:
-#             return redirect('signin')
-#     else:
-#         return render(request,
-#                    'signin.html')
+def logout_view(request):
+    logout(request)
+    return redirect('/')
